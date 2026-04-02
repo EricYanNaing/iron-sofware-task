@@ -10,10 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", updateHeaderState, { passive: true });
   }
 
-  if (!("IntersectionObserver" in window)) {
-    return;
-  }
-
   const links = Array.from(document.querySelectorAll("[data-nav-link]")).filter((link) => {
     return link.hash && link.pathname === window.location.pathname;
   });
@@ -55,29 +51,60 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visibleEntries = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((left, right) => right.intersectionRatio - left.intersectionRatio);
+  const getHeaderOffset = () => {
+    return (header?.getBoundingClientRect().height ?? 0) + 24;
+  };
 
-      if (!visibleEntries.length) {
-        return;
-      }
+  const resolveActiveHash = () => {
+    const headerOffset = getHeaderOffset();
+    const sectionPositions = sections.map(({ hash, section }) => {
+      return {
+        hash,
+        top: section.getBoundingClientRect().top
+      };
+    });
 
-      const activeSection = sections.find(({ section }) => section === visibleEntries[0].target);
+    const currentSection = sectionPositions
+      .filter(({ top }) => top <= headerOffset)
+      .sort((left, right) => right.top - left.top)[0];
 
-      if (activeSection) {
-        setActiveLink(activeSection.hash);
-      }
-    },
-    {
-      rootMargin: "-35% 0px -45% 0px",
-      threshold: [0.2, 0.4, 0.6]
+    if (currentSection) {
+      return currentSection.hash;
     }
-  );
 
-  sections.forEach(({ section }) => {
-    observer.observe(section);
-  });
+    return sectionPositions.sort((left, right) => left.top - right.top)[0]?.hash ?? sections[0].hash;
+  };
+
+  const syncActiveLink = () => {
+    setActiveLink(resolveActiveHash());
+  };
+
+  let isSyncQueued = false;
+
+  const queueSyncActiveLink = () => {
+    if (isSyncQueued) {
+      return;
+    }
+
+    isSyncQueued = true;
+
+    window.requestAnimationFrame(() => {
+      isSyncQueued = false;
+      syncActiveLink();
+    });
+  };
+
+  if (window.location.hash) {
+    const hashedSection = sections.find(({ hash }) => hash === window.location.hash);
+
+    if (hashedSection) {
+      setActiveLink(hashedSection.hash);
+    }
+  }
+
+  queueSyncActiveLink();
+  window.addEventListener("scroll", queueSyncActiveLink, { passive: true });
+  window.addEventListener("resize", queueSyncActiveLink);
+  window.addEventListener("hashchange", queueSyncActiveLink);
+  window.addEventListener("load", queueSyncActiveLink);
 });

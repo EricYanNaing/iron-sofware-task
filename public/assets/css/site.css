@@ -568,6 +568,10 @@ p {
   padding: 3.9rem 0;
 }
 
+.library-stack-panel[id] {
+  scroll-margin-top: 7rem;
+}
+
 .library-why-panel {
   background:
     radial-gradient(circle at 20% 24%, rgba(194, 102, 164, 0.16), transparent 26%),
@@ -717,6 +721,44 @@ p {
   color: var(--muted);
 }
 
+.page-projects .section-panel,
+.page-project-detail .section-panel {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: none;
+}
+
+.page-projects .section-text,
+.page-projects .project-card__summary,
+.page-projects .project-card__note,
+.page-projects .detail-list li,
+.page-projects .breadcrumb-nav,
+.page-project-detail .section-text,
+.page-project-detail .project-card__summary,
+.page-project-detail .project-card__note,
+.page-project-detail .detail-list li,
+.page-project-detail .breadcrumb-nav {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.page-projects .page-title,
+.page-projects .section-title,
+.page-projects .project-card__title,
+.page-projects .project-card__year,
+.page-project-detail .page-title,
+.page-project-detail .section-title,
+.page-project-detail .project-card__title,
+.page-project-detail .project-card__year {
+  color: #fff;
+}
+
+.page-projects .pill-tag,
+.page-project-detail .pill-tag {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .skill-chip,
 .pill-tag {
   display: inline-flex;
@@ -770,10 +812,44 @@ p {
   color: var(--brand-strong);
 }
 
+.page-projects .project-card__link,
+.page-project-detail .project-card__link,
+.page-projects .breadcrumb-nav a,
+.page-project-detail .breadcrumb-nav a {
+  color: #97efe0;
+}
+
+.page-projects .project-card__link:hover,
+.page-projects .project-card__link:focus-visible,
+.page-project-detail .project-card__link:hover,
+.page-project-detail .project-card__link:focus-visible,
+.page-projects .breadcrumb-nav a:hover,
+.page-projects .breadcrumb-nav a:focus-visible,
+.page-project-detail .breadcrumb-nav a:hover,
+.page-project-detail .breadcrumb-nav a:focus-visible {
+  color: #c7fff6;
+}
+
 .skill-chip {
   border-color: rgba(16, 59, 54, 0.14);
   background: rgba(16, 59, 54, 0.08);
   color: var(--brand);
+}
+
+.page-projects .skill-chip,
+.page-project-detail .skill-chip {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f0cdeb;
+}
+
+.page-project-detail .metric-card {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.page-project-detail .metric-card__label {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .detail-list li {

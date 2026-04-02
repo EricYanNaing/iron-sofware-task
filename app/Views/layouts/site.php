@@ -12,7 +12,11 @@
     <meta property="og:title" content="<?= esc($meta['title'] ?? ($site['brand'] ?? 'Portfolio')) ?>">
     <meta property="og:description" content="<?= esc($meta['description'] ?? '') ?>">
     <meta property="og:url" content="<?= esc(current_url()) ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/5.3.8/bootstrap.min.css') ?>">
+    <?php
+    $bootstrapCssUrl = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css';
+    $bootstrapJsUrl = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js';
+    ?>
+    <link rel="stylesheet" href="<?= esc($bootstrapCssUrl) ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/site.css') ?>">
     <?= $this->renderSection('head') ?>
 </head>
@@ -63,7 +67,7 @@
                                 $children,
                                 static fn(array $child): bool => ($child['href'] ?? '') === '/projects',
                             );
-                            $isActive = (! $hasChildren && $href === '/projects' && $isProjectsPath)
+                            $isActive = (!$hasChildren && $href === '/projects' && $isProjectsPath)
                                 || ($hasChildren && $isProjectsPath && $childProjectLinks !== []);
 
                             if ($hasChildren) {
@@ -72,14 +76,9 @@
                             ?>
                             <?php if ($hasChildren): ?>
                                 <li class="nav-item dropdown">
-                                    <a
-                                        class="nav-link site-nav__link dropdown-toggle<?= $isActive ? ' is-current' : '' ?>"
-                                        href="#"
-                                        id="<?= esc($menuId) ?>"
-                                        role="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                    >
+                                    <a class="nav-link site-nav__link dropdown-toggle<?= $isActive ? ' is-current' : '' ?>"
+                                        href="#" id="<?= esc($menuId) ?>" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
                                         <?= esc($item['label'] ?? '') ?>
                                     </a>
                                     <ul class="dropdown-menu site-dropdown-menu" aria-labelledby="<?= esc($menuId) ?>">
@@ -90,11 +89,8 @@
                                             $childIsActive = $childHref === '/projects' && $isProjectsPath;
                                             ?>
                                             <li>
-                                                <a
-                                                    class="dropdown-item site-dropdown-item<?= $childIsActive ? ' is-current' : '' ?>"
-                                                    href="<?= esc($childLink) ?>"
-                                                    <?= $childIsActive ? 'aria-current="page"' : '' ?>
-                                                >
+                                                <a class="dropdown-item site-dropdown-item<?= $childIsActive ? ' is-current' : '' ?>"
+                                                    href="<?= esc($childLink) ?>" <?= $childIsActive ? 'aria-current="page"' : '' ?>>
                                                     <?= esc($child['label'] ?? '') ?>
                                                 </a>
                                             </li>
@@ -143,7 +139,7 @@
         </section>
     </footer>
 
-    <script src="<?= base_url('assets/vendor/bootstrap/5.3.8/bootstrap.bundle.min.js') ?>" defer></script>
+    <script src="<?= esc($bootstrapJsUrl) ?>" defer></script>
     <script src="<?= base_url('assets/js/site.js') ?>" defer></script>
     <?= $this->renderSection('scripts') ?>
 </body>

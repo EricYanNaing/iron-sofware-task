@@ -92,9 +92,9 @@
     </div>
 </section>
 
-<section class="content-section library-stack-section" id="about">
+<section class="content-section library-stack-section">
     <div class="library-stack-shell">
-        <section class="library-stack-panel library-why-panel">
+        <section class="library-stack-panel library-why-panel" id="about">
             <div class="container">
                 <div class="row g-4 g-xl-5 align-items-center library-inner">
                     <div class="col-lg-4">

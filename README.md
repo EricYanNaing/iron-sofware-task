@@ -29,6 +29,7 @@ cp env .env
 4. Update `.env` if needed:
 - Set `CI_ENVIRONMENT = development` for local development.
 - Set `app.baseURL` to the URL you want to use locally.
+- If `php spark serve` starts on a port other than `8080`, make sure `app.baseURL` matches that port.
 
 5. Start the local server:
 
@@ -46,3 +47,5 @@ php spark serve
 - Home page: `app/Views/pages/home.php`
 - Projects pages: `app/Views/pages/projects/`
 - Content source: `app/Data/site-content.json`
+- Bootstrap 5.3.8 is loaded from `public/assets/vendor/bootstrap/5.3.8/` when present, and falls back to jsDelivr CDN if those files are not available.
+- Licensed Gotham font files are not included in the repo. If they are missing, the site will use fallback fonts defined in `public/assets/css/site.css`.
